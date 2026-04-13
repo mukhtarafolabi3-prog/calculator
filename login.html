@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+
+        body{
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color:blue;
+            color: white;
+        }
+
+        form{
+            display: flex;
+            flex-direction: column;
+            padding: 15px;
+            gap: 20px;
+            background-color: white;
+            box-shadow: 0px 0px 1px black;
+            border-radius: 12px;
+            color: black;
+            width: 100%;
+            max-width: 380px;
+        }
+
+
+        label{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        input,button{
+            height: 40px;
+        }
+        #reg{
+            display: none;
+        }
+
+
+        #loader{
+            background-color: rgba(0, 0, 0, 0.295);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            z-index: 9999;
+            width: 100%;
+            height: 100vh;
+            
+        }
+
+        .spin{
+            width: 50px;
+            height: 50px;
+            animation: spinner 2s infinite;
+            border-radius: 50%;
+            border: 3px solid white;
+            border-top: 3px solid black;
+
+        }
+
+        @keyframes spinner {
+            from{transform: rotate(0deg);}
+            to{transform: rotate(360deg);}
+            
+        }
+
+
+
+    </style>
+</head>
+<body>
+
+
+    <form id="reg">
+       <h1>Register</h1>
+        <label>
+            Name:
+            <input type="text" id="name">
+        </label>
+        <label>
+            Email: 
+            <input type="email" id="email">
+        </label>
+        <label>
+            Phone Number: 
+            <input type="number" id="Phone">
+        </label>
+        
+        <label for="">
+            Password:
+            <input type="password" name="" id="password">
+        </label>
+
+        <button>signup</button>
+        <small id="goTOlogin"> go to login</small>
+    </form>
+
+     
+    
+
+     <form id="login">
+        <h1>Login</h1>
+        <label>
+            Email: 
+            <input type="email" id="Email">
+        </label>
+        <label for="">
+            Password:
+            <input type="password" name="" id="Password">
+        </label>
+
+        <button>signup</button>
+
+        <small id="goToRegister"> go to register</small>
+    </form>
+
+
+     <div id="loader">
+        <div class="spin"></div>
+    </div>
+
+
+  
+    
+
+
+
+<script>
+
+
+
+
+const goTOlogin = document.getElementById('goTOlogin');
+const goToRegister = document.getElementById('goToRegister');
+
+const reg = document.getElementById('reg');
+const login = document.getElementById('login');
+goTOlogin.addEventListener('click', ()=>{
+        reg.style.display = "none";
+        login.style.display = "flex";
+})
+
+
+goToRegister.addEventListener('click', ()=>{
+     reg.style.display = "flex";
+        login.style.display = "none";
+
+})
+
+
+
+const regName = document.getElementById('name');
+const regEmail = document.getElementById('email');
+const regPassword = document.getElementById('password');
+const regPhone = document.getElementById('Phone')
+
+
+
+reg.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    const name = regName.value.trim();
+    const email = regEmail.value.trim();
+    const password = regPassword.value.trim();
+    const phone = regPhone.value.trim();
+    
+    if(!name || !email || !password || !phone) {
+        alert('Fill in your details');
+        return;
+    }
+
+    if(password.length < 8){
+        alert('Password should be at least 10');
+        return;
+    }    
+    loader.style.display = "flex";
+
+
+
+    localStorage.setItem('name', name);
+    localStorage.setItem('email', email);
+    localStorage.setItem('password', password);
+    localStorage.setItem('phone', phone);
+    setTimeout(()=>{
+        loader.style.display = "none";
+        reg.reset();
+        alert(`You Have Successful Created An Account  ${name}`);
+    }, 2000)
+
+
+
+
+
+});
+
+
+
+
+
+
+
+</body>
+</html>
